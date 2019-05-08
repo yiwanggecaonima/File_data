@@ -4,6 +4,7 @@ client = pymongo.MongoClient('127.0.0.1',27017)
 db = client['天眼查']
 import openpyxl
 
+# 存入xlsx
 outwb = openpyxl.Workbook()  # 打开一个将写的文件
 outws = outwb.create_sheet(index=0)  # 在将写的文件创建sheet
 # 维护表头
@@ -42,3 +43,56 @@ except Exception:
 
 saveExcel = "咨询行业.xls"
 outwb.save(saveExcel)  # 保存
+
+
+
+
+
+# 读取xlsx
+#!/usr/bin/env python 
+# -*- coding: utf-8 -*-
+
+from openpyxl.reader.excel import load_workbook
+import json
+
+# 读取excel2007文件
+wb = load_workbook(filename='/home/parrot/Desktop/666.xlsx')
+
+# 显示有多少张表
+print("Worksheet range(s):", wb.get_named_ranges())
+print("Worksheet name(s):", wb.get_sheet_names())
+
+# 取第一张表
+sheetnames = wb.get_sheet_names()
+ws = wb.get_sheet_by_name(sheetnames[0])
+
+# 显示表名，表行数，表列数
+print("Work Sheet Titile:", ws.title)
+print("Work Sheet Rows:", ws.max_row)
+print("Work Sheet Cols:", ws.max_column)
+
+
+
+# 把数据存到字典中
+for rx in range(2, 360):
+    d ={} 
+    pid = rx
+    dengji = ws.cell(row=rx, column=1).value
+    
+    baidu = ws.cell(row=rx, column=2).value
+    
+    mafengwo_name = ws.cell(row=rx, column=5).value
+    
+    
+
+    
+    d["111"] = dengji
+    d["222"] = 
+    d["333"] = 
+    d["444"] = 
+
+    print(d)
+    with open("/home/parrot/Desktop/666.txt","a") as f:
+        f.write(json.dumps(d, ensure_ascii=False) + "\n")
+# print('Total:%d' % len(data_dic))
+# print(json.dumps(d, ensure_ascii=False))
